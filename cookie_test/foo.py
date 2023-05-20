@@ -1,3 +1,6 @@
+from time import sleep
+
+
 def foo() -> str:
     """Summary line.
 
@@ -11,6 +14,12 @@ def foo() -> str:
     """
 
     return "foo"
+
+
+def delayed_hello() -> str:
+    """Delayed hello"""
+    sleep(10)
+    return "Hello world"
 
 
 if __name__ == "__main__":  # pragma: no cover
