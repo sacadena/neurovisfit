@@ -13,5 +13,10 @@ def foo() -> str:
     return "foo"
 
 
+def hello() -> str:
+    """Delayed hello"""
+    return "Hello world"
+
+
 if __name__ == "__main__":  # pragma: no cover
     pass
