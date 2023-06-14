@@ -11,8 +11,27 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<4.0"
+python = ">=3.8,<3.12"
 torch = "^2.0.1"
+torchvision = "^0.15.2"
+numpy = "^1.24.3"
+pandas = "^2.0.1"
+tqdm = "^4.65.0"
+h5py = "^3.8.0"
+scipy = "^1.9.1"
+pydantic = "^1.10.8"
+neuralpredictors = "^0.3.0"
+scikit-image = "^0.20.0"
+cornet = { git = "https://github.com/sacadena/CORnet.git", branch = "master" }
+ptrnets = { git = "https://github.com/sacadena/ptrnets.git", branch = "master" }
+visualpriors = { git = "https://github.com/sacadena/midlevel-reps.git", branch = "visualpriors", tag = "0.3.5" }
+tomli = "^2.0.1"
+jupyterlab = "^4.0.2"
+multiprocess = "^0.70.14"
+matplotlib = "^3.7.1"
+jupyter-resource-usage = "^0.7.2"
+
+
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
@@ -39,10 +58,10 @@ preview = true
 [tool.mypy]
 files = ["cookie_test"]
 disallow_untyped_defs = "True"
-disallow_any_unimported = "True"
+disallow_any_unimported = "False"
 no_implicit_optional = "True"
 check_untyped_defs = "True"
-warn_return_any = "True"
+warn_return_any = "False"
 warn_unused_ignores = "True"
 show_error_codes = "True"
 
