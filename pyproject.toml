@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cookie_test"
-version = "0.0.1"
+version = "0.0.2"
 description = "This is a template repository for Python projects that use Poetry for their dependency management."
 authors = ["Santiago Cadena <fsa.cadena721@gmail.com>"]
 repository = "https://github.com/sacadena/coockie-test"
@@ -30,6 +30,7 @@ jupyterlab = "^4.0.2"
 multiprocess = "^0.70.14"
 matplotlib = "^3.7.1"
 jupyter-resource-usage = "^0.7.2"
+mkdocs = "^1.4.3"
 
 
 
