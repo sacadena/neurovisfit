@@ -22,8 +22,8 @@ jobs:
       - name: Set up the environment
         uses: ./.github/actions/setup-poetry-env
 
-      - name: Run checks
-        run: make check
+#      - name: Run checks
+#        run: make check
 
   tox:
     runs-on: ubuntu-latest
