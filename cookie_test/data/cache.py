@@ -83,10 +83,10 @@ class ImageCache:
         img_mean = images.mean()
         img_std = images.std()
 
-        for item in self._cache:
-            self._cache[item] = ImageTransform.normalize(self._cache[item], img_mean, img_std)
-
         img_mean_array, img_std_array = float(img_mean.item()), float(img_std.item())
+
+        for item in self._cache:
+            self._cache[item] = ImageTransform.normalize(self._cache[item], img_mean_array, img_std_array)
 
         if self.image_transformation is not None:
             self.image_transformation.mean_images = img_mean_array

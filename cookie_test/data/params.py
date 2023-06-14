@@ -122,7 +122,7 @@ class ImageTransform(BaseModel):
         ).astype(x.dtype)
 
     @staticmethod
-    def normalize(x: np.ndarray, mean: float, std: float) -> Union[np.ndarray, torch.Tensor]:
+    def normalize(x: torch.Tensor, mean: float, std: float) -> torch.Tensor:
         return (x - mean) / std
 
     def transform(self, image: Image) -> torch.Tensor:
@@ -161,8 +161,7 @@ class ImageTransform(BaseModel):
         else:
             image = image[None, ...].permute(0, 3, 1, 2)
 
-        image = self.normalize(image, self.mean_images, self.std_images)
-        return torch.tensor(image)
+        return self.normalize(torch.tensor(image), self.mean_images, self.std_images)
 
 
 class TrainWithFractionOfImages(BaseModel):

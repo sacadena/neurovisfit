@@ -139,8 +139,8 @@ def _get_dataloaders_from_params(params: DataLoaderParams) -> Dict[str, Dict[str
 
     if stats_path.is_file():
         stats_config = load_json_stats(stats_path)
-        params.image_transform.mean_images = np.float32(stats_config.get("mean_images"))
-        params.image_transform.std_images = np.float32(stats_config.get("std_images"))
+        params.image_transform.mean_images = float(np.float32(stats_config.get("mean_images")))
+        params.image_transform.std_images = float(np.float32(stats_config.get("std_images")))
 
     image_cache = ImageCache(
         path=params.data.path / "images",
