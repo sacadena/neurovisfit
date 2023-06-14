@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cookie_test"
-version = "0.0.1"
+version = "0.0.2"
 description = "This is a template repository for Python projects that use Poetry for their dependency management."
 authors = ["Santiago Cadena <fsa.cadena721@gmail.com>"]
 repository = "https://github.com/sacadena/coockie-test"
@@ -11,8 +11,77 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<4.0"
+python = ">=3.8,<3.12"
 torch = "^2.0.1"
+torchvision = "^0.15.2"
+numpy = "^1.24.3"
+pandas = "^2.0.1"
+tqdm = "^4.65.0"
+h5py = "^3.8.0"
+scipy = "^1.9.1"
+pydantic = "^1.10.8"
+neuralpredictors = "^0.3.0"
+scikit-image = "^0.20.0"
+cornet = { git = "https://github.com/sacadena/CORnet.git", branch = "master" }
+ptrnets = { git = "https://github.com/sacadena/ptrnets.git", branch = "master" }
+visualpriors = { git = "https://github.com/sacadena/midlevel-reps.git", branch = "visualpriors", tag = "0.3.5" }
+tomli = "^2.0.1"
+multiprocess = "^0.70.14"
+#exceptiongroup = "^1.1.1"
+#filelock = "^3.12.2"
+#fire = "^0.5.0"
+#fonttools = "^4.40.0"
+#gdown = "^4.7.1"
+#ghp-import = "^2.1.0"
+#griffe = "^0.29.0"
+#identify = "^2.5.24"
+#idna = "^3.4"
+#imageio = "^2.31.1"
+#importlib-metadata = "^6.6.0"
+#importlib-resources = "^5.12.0"
+#iniconfig = "^2.0.0"
+#kiwisolver = "^1.4.4"
+#lazy-loader = "^0.2"
+#mergedeep = "^1.3.4"
+#mpmath = "^1.3.0"
+#mypy-extensions = "^1.0.0"
+#networkx = "^3.1"
+#packaging = "^23.1"
+#pip = "^23.1.2"
+#platformdirs = "^3.5.3"
+#pluggy = "^1.0.0"
+#pyparsing = "^3.0.9"
+#pytz = "^2023.3"
+#requests = "^2.31.0"
+#six = "^1.16.0"
+#soupsieve = "^2.4.1"
+#sympy = "^1.12"
+#termcolor = "^2.3.0"
+#tifffile = "^2023.4.12"
+#typing-extensions = "^4.6.3"
+#urllib3 = "^2.0.3"
+#virtualenv = "^20.23.0"
+#watchdog = "^3.0.0"
+#wheel = "^0.40.0"
+#zipp = "^3.15.0"
+#cfgv = "^3.3.1"
+#chardet = "^5.1.0"
+#charset-normalizer = "^3.1.0"
+#click = "^8.1.3"
+#colorama = "^0.4.6"
+#coverage = "^7.2.7"
+#dill = "^0.3.6"
+#distlib = "^0.3.6"
+#jinja2 = "^3.1.2"
+#markupsafe = "^2.1.3"
+#pygments = "^2.15.1"
+#certifi = "^2023.5.7"
+#markdown = "3.3.7"
+#mkdocstrings = "0.19.0"
+#mkdocs = "^1.4.3"
+#mkdocs-autorefs = "^0.4.1"
+
+
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
@@ -38,13 +107,16 @@ preview = true
 
 [tool.mypy]
 files = ["cookie_test"]
+exclude = ["tests/*"]
+incremental = "False"
 disallow_untyped_defs = "True"
-disallow_any_unimported = "True"
+disallow_any_unimported = "False"
 no_implicit_optional = "True"
 check_untyped_defs = "True"
-warn_return_any = "True"
+warn_return_any = "False"
 warn_unused_ignores = "True"
 show_error_codes = "True"
+ignore_missing_imports = "True"
 
 [tool.ruff]
 target-version = "py37"
@@ -99,4 +171,66 @@ skip_empty = true
 branch = true
 source = ["cookie_test"]
 
+[tool.deptry]
+skip_missing = true
+skip_transitive = true
+skip_misplaced_dev = true
 
+#ignore_missing = [
+#    'A', 'AppKit', 'B', 'BeaEnginePython', 'Carbon', 'ConfigParser', 'Cython', 'EasyDialogs', 'FSEvents', 'Foundation',
+#    'HTMLParser', 'IPython', 'Levenshtein', 'Numeric', 'OpenGL', 'OpenSSL', 'PIL', 'PyInstaller', 'PyQt4', 'PyQt5',
+#    'PyQt6', 'PySide', 'PySide2', 'PySide6', 'Pyside', 'Quartz', 'Queue', 'Res', 'SimpleITK', 'StringIO', 'System',
+#    'Tkinter', 'UserDict', 'UserList', '__builtin__', '__init__', '__main__', '__pypy__', '__version__', '_abcoll',
+#    '_aix_support', '_argon2_cffi_bindings', '_ast_gen', '_cffi_backend', '_collections_abc', '_compat_pickle', '_csv',
+#    '_ctypes', '_curses', '_distutils_hack', '_dummy_thread', '_frozen_importlib', '_frozen_importlib_external',
+#    '_generate_pyx', '_imagecodecs', '_imp', '_manylinux', '_multibytecodec', '_multiprocessing', '_operator',
+#    '_osx_support', '_posixshmem', '_posixsubprocess', '_pydev_bundle', '_pydev_runfiles', '_pydevd_bundle',
+#    '_pydevd_bundle_ext', '_pydevd_frame_eval', '_pydevd_frame_eval_ext', '_pyio', '_pypy_irc_topic', '_pypy_wait',
+#    '_registry', '_ssl', '_string', '_structseq', '_subprocess', '_testbuffer', '_tkinter', '_typeshed', '_warnings',
+#    '_weakrefset', '_winapi', '_winreg', 'accimage', 'add_code_to_python_process', 'aesara', 'all', 'antlr4', 'anydbm',
+#    'anyio', 'apipkg', 'appdirs', 'appnope', 'argcomplete', 'argon2', 'array_interface_testing', 'arrow', 'astroid',
+#    'astropy', 'asttokens', 'astunparse', 'async_lru', 'asyncssh', 'atheris', 'attach_pydevd', 'attach_script', 'attr',
+#    'autolevparser', 'av', 'babel', 'backcall', 'backports', 'beartype', 'black', 'bleach', 'bokeh', 'boto3', 'botocore',
+#    'brotli', 'brotlicffi', 'bs4', 'bsdf_cli', 'cPickle', 'cStringIO', 'c_ast', 'cached_property', 'caffe2', 'cairo',
+#    'cairocffi', 'cairosvg', 'capstone', 'cartopy', 'cchardet', 'ccompiler_opt', 'cerealizer', 'cffi', 'cftime',
+#    'checks', 'cloudpickle', 'clr', 'code_generators', 'com', 'comm', 'compiler', 'concurrencytest', 'conda',
+#    'contextlib2', 'contourpy', 'copier', 'coremltools', 'crash', 'cryptography', 'ctags', 'curio', 'cv2', 'cycler',
+#    'cython', 'dask', 'dateutil', 'debugpy', 'decorator', 'defcon', 'defusedxml', 'diff', 'disassemble', 'disco',
+#    'distorm', 'distorm3', 'django', 'dl', 'docrepr', 'docutils', 'dotenv', 'dummy_thread', 'dummy_threading',
+#    'email_validator', 'etcd', 'eventlet', 'executing', 'expecttest', 'fastjsonschema', 'fastparquet', 'flaky', 'foo',
+#    'fqdn', 'freetype', 'fs', 'fsspec', 'futures', 'genapi', 'genshi', 'gevent', 'gi', 'glut_support', 'glyphsLib',
+#    'gmpy', 'gmpy2', 'gobject', 'google', 'greenlet', 'gtk', 'html5lib', 'htmlentitydefs', 'httplib', 'hypothesis',
+#    'idlelib', 'imagecodecs', 'imageio_ffmpeg', 'imread', 'intel_extension_for_pytorch', 'ipykernel', 'ipyparallel',
+#    'ipython_denied_module', 'ipywidgets', 'isoduration', 'itk', 'java', 'jedi', 'jnius', 'json5', 'jsonpointer',
+#    'jsonschema', 'jupyter_client', 'jupyter_collaboration', 'jupyter_core', 'jupyter_events', 'jupyter_lsp',
+#    'jupyter_packaging', 'jupyter_resource_usage', 'jupyter_server', 'jupyter_server_terminals', 'jupyterhub',
+#    'jupyterlab', 'jupyterlab_pygments', 'jupyterlab_server', 'keras', 'keyring', 'lextab', 'libdisassemble', 'libfb',
+#    'lldb', 'lmdb', 'lockfile', 'lunr', 'lxml', 'lz4', 'matchpy', 'material', 'matplotlib', 'matplotlib_inline',
+#    'mayavi', 'mem_policy', 'mistune', 'mkdocstrings_handlers', 'mock', 'mod', 'monkeytype', 'moviepy', 'mpi4py',
+#    'mpl_toolkits', 'multiset', 'munkres', 'native', 'nbclient', 'nbconvert', 'nbformat', 'nest_asyncio', 'netifaces',
+#    'nose', 'notebook', 'notebook_shim', 'ntlm', 'ntsecuritycon', 'numarray', 'numba', 'numcodecs', 'numexpr',
+#    'numpy_api', 'numpy_distutils', 'numpydoc', 'nvfuser', 'odf', 'olefile', 'onnx', 'onnxruntime', 'onnxscript',
+#    'opcode', 'openapi_core', 'openpyxl', 'opt_einsum', 'org', 'osgeo', 'outcome', 'overrides', 'ox_profile',
+#    'pandocfilters', 'paramiko', 'parso', 'pathlib2', 'pathops', 'pexpect', 'pickle5', 'pickleshare', 'pkg_resources',
+#    'pkgutil_resolve_name', 'ply', 'pooch', 'pox', 'prometheus_client', 'prompt_toolkit', 'psutil', 'psyco',
+#    'psycopg2', 'ptyprocess', 'pudb', 'pure_eval', 'pvectorc', 'pyamg', 'pyarrow', 'pybind11', 'pycares', 'pycocotools',
+#    'pycosat', 'pycparser', 'pycurl', 'pyczmq', 'pydasm', 'pydev_ipython', 'pydev_pysrc', 'pydevconsole', 'pydevd',
+#    'pydevd_file_utils', 'pydevd_plugins', 'pydevd_tracing', 'pydoc_data', 'pydot', 'pydy', 'pyglet', 'pygraphviz',
+#    'pylab', 'pymatbridge', 'pymc', 'pymc3', 'pymdownx', 'pynvml', 'pyodide_js', 'pyperclip', 'pyperf', 'pyppeteer',
+#    'pyrsistent', 'pysat', 'pysqlite2', 'pytest_timeout', 'python_socks', 'pythoncom', 'pythonjsonlogger', 'pythran',
+#    'pytorch_lightning', 'pywintypes', 'pywt', 'pyxlsb', 'qtpy', 'railroad', 'regex', 'reportlab',
+#    'rfc3339_validator', 'rfc3986_validator', 'rfc3987', 'rich', 'ruamel', 's3fs', 'sage', 'scikits', 'seaborn',
+#    'send2trash', 'sets', 'setup', 'setup_common', 'setuptools_scm', 'shiboken2', 'shiboken6', 'simplejson', 'sip',
+#    'sitecustomize', 'sklearn', 'sksparse', 'slack_sdk', 'sniffio', 'socks', 'sparse', 'sphinx', 'sql', 'sqlalchemy',
+#    'stack_data', 'stackless', 'statsmodels', 'symengine', 'system', 'tables', 'tabulate', 'tensorboard', 'tensorflow',
+#    'terminado', 'test_classdef', 'test_dictviews', 'test_mixins', 'test_moduledict', 'testpath', 'tests_python',
+#    'textio', 'theano', 'thread', 'threadpoolctl', 'tidylib', 'tifffile_geodb', 'tinycss2', 'tkFileDialog', 'toml',
+#    'tomli_w', 'tomllib', 'torch_xla', 'torcharrow', 'torchaudio', 'torchdistx', 'tornado', 'traitlets',
+#    'transformers', 'trio', 'trio_typing', 'triton', 'trove_classifiers', 'truststore', 'tvm', 'twisted', 'typed_ast',
+#    'uarray', 'ufoLib2', 'uharfbuzz', 'ukkonen', 'unicodedata2', 'uri_template', 'urllib2', 'urllib3_secure_extra',
+#    'urlparse', 'uvloop', 'version', 'wcwidth', 'webcolors', 'webencodings', 'websocket', 'websockets', 'werkzeug',
+#    'win32', 'win32api', 'win32clipboard', 'win32com', 'win32con', 'win32pdh', 'win32process', 'win32security',
+#    'win_inet_pton', 'winappdbg', 'winpty', 'wmi', 'wsaccel', 'wx', 'xarray', 'xattr', 'xlrd', 'xlsxwriter',
+#    'xmlrpclib', 'xmlrunner', 'xmltodict', 'yacctab', 'yaml', 'yaml_env_tag', 'yapf', 'z3', 'zmq', 'zope', 'zopfli',
+#    'zstandard', 'zstd', 'deptry', 'mypy', 'mypy', 'pre-commit', 'py', 'pytest', 'tox'
+#]
