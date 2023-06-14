@@ -21,11 +21,13 @@ class ImageCache:
         path: Path,
         image_transformation: Optional[ImageTransform] = None,
         filename_precision: int = 6,
+        parallelized: bool = True,
     ) -> None:
         self.path = path
         self.image_transformation = image_transformation
         self._cache: Dict[int, torch.Tensor] = {}
         self.filename_precision = filename_precision
+        self.parallelized = parallelized
 
     def __len__(self) -> int:
         """List all files in self.path that end with .png"""
@@ -64,14 +66,19 @@ class ImageCache:
             return torch.stack([self[item] for item in items])
 
         print("Loading and caching transformed images ...")
-        # Use multiprocessing to load and transform images in parallel
-        with Pool() as pool, tqdm(total=len(items), position=0, leave=True) as pbar:
-            # This does not update the cache
-            outs = list(tqdm(pool.imap(self.__getitem__, items), total=len(items), position=0, leave=True))
-            pbar.update()
-        # Update the cache
-        for item, out in zip(items, outs):
-            self._cache[item] = out
+
+        if self.parallelized:
+            # Use multiprocessing to load and transform images in parallel
+            with Pool() as pool, tqdm(total=len(items), position=0, leave=True) as pbar:
+                # This does not update the cache
+                outs = list(tqdm(pool.imap(self.__getitem__, items), total=len(items), position=0, leave=True))
+                pbar.update()
+            # Update the cache
+            for item, out in zip(items, outs):
+                self._cache[item] = out
+        else:
+            for item in tqdm(items, total=len(items), position=0, leave=True):
+                self._cache[item] = self[item]
 
         return torch.stack([self[item] for item in items])
 

@@ -24,7 +24,7 @@ def mock_image_cache(tmpdir) -> ImageCache:
     image3.save(temp_dir / "000003.png")
 
     # Create an instance of ImageCache for testing
-    image_cache = ImageCache(temp_dir, filename_precision=6)
+    image_cache = ImageCache(temp_dir, filename_precision=6, parallelized=False)
     _ = image_cache.images
 
     return image_cache
