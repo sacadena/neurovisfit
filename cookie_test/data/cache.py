@@ -50,7 +50,7 @@ class ImageCache:
         """Load an image from the cache, or from disk if it is not yet in the cache"""
         filename = str(self.path / f"{self.from_image_id_to_filename(item)}.png")
         image = Image.open(filename)
-        image = self.image_transformation.transform(image) if self.image_transformation else image
+        image = self.image_transformation.transform(image) if self.image_transformation else np.array(image)
         image = torch.Tensor(image).to(torch.float)
         return image
 
@@ -86,7 +86,7 @@ class ImageCache:
         for item in self._cache:
             self._cache[item] = ImageTransform.normalize(self._cache[item], img_mean, img_std)
 
-        img_mean_array, img_std_array = np.float32(img_mean.item()), np.float32(img_std.item())
+        img_mean_array, img_std_array = float(img_mean.item()), float(img_std.item())
 
         if self.image_transformation is not None:
             self.image_transformation.mean_images = img_mean_array

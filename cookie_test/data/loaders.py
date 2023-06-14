@@ -70,9 +70,9 @@ def get_loader_split(
         session.responses = params.process_time_bins.process(session.responses)
 
         extra_arrays: Dict[str, np.ndarray] = {}
-        if params.include_prev_image:
+        if params.include_prev_image and session.previous_image_ids is not None:
             extra_arrays["previous_image_ids"] = session.previous_image_ids
-        if params.include_trial_id:
+        if params.include_trial_id and session.trial_ids is not None:
             extra_arrays["trial_ids"] = session.trial_ids
 
         named_data_splits: List[NamedDataSplit] = []
@@ -97,6 +97,8 @@ def get_loader_split(
                     InputResponseSelector(
                         image_ids=session.image_ids,
                         responses=session.responses,
+                        image_ids_to_keep=None,
+                        fraction_config=None,
                         **extra_arrays,
                     ),
                 ),
@@ -200,7 +202,7 @@ def get_dataloaders(
     params_config = get_params_from_config(dataset_name) if dataset_name is not None else {}
 
     # Create input params dict
-    params_input = {}
+    params_input: Dict[str, Any] = {}
     for name, field in zip(
         ("data", "image_transform", "process_time_bins", "train_with_fraction_of_images"),
         (data, image_transform, process_time_bins, train_with_fraction_of_images),
@@ -218,8 +220,11 @@ def get_dataloaders(
     # Override config params with input params
     params = {**params_config, **params_input}
 
+    if params == {}:
+        raise ValueError("Missing required parameters")
+
     # Check compatibility with schema
-    if not set(params.keys()).issuperset(set(DataLoaderParams.schema().get("required"))):
+    if not set(params.keys()).issuperset(set(DataLoaderParams.schema().get("required", []))):
         raise ValueError("Missing required parameters")
     data_loader_params = DataLoaderParams(**params)
 

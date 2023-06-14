@@ -57,6 +57,8 @@ preview = true
 
 [tool.mypy]
 files = ["cookie_test"]
+exclude = ["tests/*"]
+incremental = "False"
 disallow_untyped_defs = "True"
 disallow_any_unimported = "False"
 no_implicit_optional = "True"
@@ -64,6 +66,7 @@ check_untyped_defs = "True"
 warn_return_any = "False"
 warn_unused_ignores = "True"
 show_error_codes = "True"
+ignore_missing_imports = "True"
 
 [tool.ruff]
 target-version = "py37"

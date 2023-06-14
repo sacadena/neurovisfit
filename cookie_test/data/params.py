@@ -122,7 +122,7 @@ class ImageTransform(BaseModel):
         ).astype(x.dtype)
 
     @staticmethod
-    def normalize(x: np.ndarray, mean: float, std: float) -> np.ndarray:
+    def normalize(x: np.ndarray, mean: float, std: float) -> Union[np.ndarray, torch.Tensor]:
         return (x - mean) / std
 
     def transform(self, image: Image) -> torch.Tensor:
