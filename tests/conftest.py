@@ -1,3 +1,5 @@
+import csv
+import json
 from pathlib import Path
 
 import numpy as np
@@ -32,3 +34,24 @@ def mock_image_cache(tmpdir) -> ImageCache:
 @pytest.fixture
 def mock_responses() -> np.ndarray:
     return np.array([[0, 1, 0], [0, 0, 1], [1, 1, 1]])
+
+
+@pytest.fixture
+def mock_session_path(tmpdir):
+    temp_dir = Path(tmpdir.mkdir("test"))
+    session_path = temp_dir / "session"
+    session_path.mkdir()
+
+    responses_csv = session_path / "responses.csv"
+    with responses_csv.open("w") as f:
+        writer = csv.writer(f)
+        writer.writerow(["responses", "image_id"])
+        writer.writerow(["[0, 1, 0]", "1"])
+        writer.writerow(["[0, 0, 1]", "2"])
+        writer.writerow(["[1, 1, 1]", "3"])
+
+    meta_data_json = session_path / "meta_data.json"
+    with meta_data_json.open("w") as f:
+        json.dump({"subject_id": "001", "session_id": "123"}, f)
+
+    return session_path
