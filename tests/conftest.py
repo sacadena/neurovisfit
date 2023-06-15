@@ -55,3 +55,24 @@ def mock_session_path(tmpdir):
         json.dump({"subject_id": "001", "session_id": "123"}, f)
 
     return session_path
+
+
+@pytest.fixture
+def mock_data_path(tmpdir):
+    from pathlib import Path
+
+    temp_dir = Path(tmpdir.mkdir("data"))
+    (temp_dir / "images").mkdir()
+    image = Image.fromarray((np.random.randn(10, 10) * 255).astype(np.uint8))
+    image.save(temp_dir / "images/000001.png")
+    for session in range(1, 4):
+        for split in ("train", "test"):
+            session_path = temp_dir / f"{split}/session{session}"
+            session_path.mkdir(parents=True)
+            with (session_path / "responses.csv").open("w") as f:
+                writer = csv.writer(f)
+                writer.writerow(["responses", "image_id"])
+                writer.writerow(["[0, 1, 0]", "1"])
+            with (session_path / "meta_data.json").open("w") as f:
+                json.dump({"subject_id": "001", "session_id": "123"}, f)
+    return temp_dir
