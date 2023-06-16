@@ -2,10 +2,10 @@ import numpy as np
 import pytest
 import torch
 
-from cookie_test.data.dataset import DataSplit
-from cookie_test.data.dataset import ImageResponseDataset
-from cookie_test.data.dataset import InputResponseSelector
-from cookie_test.data.dataset import NamedDataSplit
+from neurovisfit.data.dataset import DataSplit
+from neurovisfit.data.dataset import ImageResponseDataset
+from neurovisfit.data.dataset import InputResponseSelector
+from neurovisfit.data.dataset import NamedDataSplit
 
 
 @pytest.fixture

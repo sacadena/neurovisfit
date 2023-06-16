@@ -1,8 +1,8 @@
 import torch
 from torch.utils.data import DataLoader
 
-from cookie_test.common.dimensions import get_dims_for_loader_dict
-from cookie_test.common.dimensions import get_io_dims
+from neurovisfit.common.dimensions import get_dims_for_loader_dict
+from neurovisfit.common.dimensions import get_io_dims
 
 
 def test_get_io_dims():

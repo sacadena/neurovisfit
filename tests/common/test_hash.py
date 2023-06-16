@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from cookie_test.common.hash import make_hash
+from neurovisfit.common.hash import make_hash
 
 
 def test_make_hash_string():

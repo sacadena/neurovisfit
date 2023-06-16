@@ -1,10 +1,10 @@
-site_name: coockie-test
-repo_url: https://github.com/sacadena/coockie-test
-site_url: https://sacadena.github.io/coockie-test
+site_name: neurovisfit
+repo_url: https://github.com/sacadena/neurovisfit
+site_url: https://sacadena.github.io/neurovisfit
 site_description: This is a template repository for Python projects that use Poetry for their dependency management.
 site_author: Santiago Cadena
 edit_uri: edit/main/docs/
-repo_name: sacadena/coockie-test
+repo_name: sacadena/neurovisfit
 copyright: Maintained by <a href="https://sacadena.com">Florian</a>.
 
 nav:
@@ -43,9 +43,9 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/sacadena/coockie-test
+      link: https://github.com/sacadena/neurovisfit
     - icon: fontawesome/brands/python
-      link: https://pypi.org/project/coockie-test
+      link: https://pypi.org/project/neurovisfit
 
 markdown_extensions:
   - toc:

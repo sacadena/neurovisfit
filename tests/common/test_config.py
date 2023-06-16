@@ -2,7 +2,7 @@ from importlib.resources import open_text
 
 import pytest
 
-from cookie_test.common.config import TomlConfig
+from neurovisfit.common.config import TomlConfig
 
 
 def test_toml_config_get_dict(mock_toml_config, mock_data_path):
@@ -49,6 +49,6 @@ def test_toml_config_invalid_file():
 
 
 def test_get_config_file():
-    with open_text("cookie_test.data", "config.toml") as f:
+    with open_text("neurovisfit.data", "config.toml") as f:
         config_file = f.read()
     assert isinstance(config_file, str)

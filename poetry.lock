@@ -539,7 +539,7 @@ test-no-images = ["pytest", "pytest-cov", "wurlitzer"]
 [[package]]
 name = "CORnet"
 version = "0.1.0"
-description = "Modeling the Neural Mechanisms of Core Object Recognition"
+description = ""
 optional = false
 python-versions = "*"
 files = []
@@ -2624,7 +2624,7 @@ test = ["enum34", "ipaddress", "mock", "pywin32", "wmi"]
 [[package]]
 name = "ptrnets"
 version = "0.0.0"
-description = "Easy access to pretrained models for system identification"
+description = ""
 optional = false
 python-versions = "*"
 files = []

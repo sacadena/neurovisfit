@@ -1,7 +1,7 @@
-from cookie_test.data.dataset import DataSplit
-from cookie_test.data.loaders import _get_dataloaders_from_params
-from cookie_test.data.loaders import get_loader_split
-from cookie_test.data.params import DataLoaderParams
+from neurovisfit.data.dataset import DataSplit
+from neurovisfit.data.loaders import _get_dataloaders_from_params
+from neurovisfit.data.loaders import get_loader_split
+from neurovisfit.data.params import DataLoaderParams
 
 
 def test_get_loader_split(mock_image_cache, mock_toml_config):

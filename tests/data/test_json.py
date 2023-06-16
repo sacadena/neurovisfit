@@ -4,9 +4,9 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from cookie_test.data.json import load_json
-from cookie_test.data.json import load_json_stats
-from cookie_test.data.json import save_json_stats
+from neurovisfit.data.json import load_json
+from neurovisfit.data.json import load_json_stats
+from neurovisfit.data.json import save_json_stats
 
 
 @pytest.fixture

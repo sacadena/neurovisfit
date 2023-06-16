@@ -1,13 +1,13 @@
 import numpy as np
 from PIL import Image
 
-from cookie_test.data.params import AggregateBins
-from cookie_test.data.params import Crop
-from cookie_test.data.params import DataLoaderParams
-from cookie_test.data.params import DataPath
-from cookie_test.data.params import ImageTransform
-from cookie_test.data.params import ProcessTimeBins
-from cookie_test.data.params import TrainWithFractionOfImages
+from neurovisfit.data.params import AggregateBins
+from neurovisfit.data.params import Crop
+from neurovisfit.data.params import DataLoaderParams
+from neurovisfit.data.params import DataPath
+from neurovisfit.data.params import ImageTransform
+from neurovisfit.data.params import ProcessTimeBins
+from neurovisfit.data.params import TrainWithFractionOfImages
 
 
 def test_crop_from_sequence():
