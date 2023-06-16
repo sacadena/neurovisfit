@@ -1,4 +1,4 @@
-from importlib.resources import open_text
+from importlib.resources import files
 
 import pytest
 
@@ -49,6 +49,5 @@ def test_toml_config_invalid_file():
 
 
 def test_get_config_file():
-    with open_text("cookie_test.data", "config.toml") as f:
-        config_file = f.read()
+    config_file = files("cookie_test.data").joinpath("config.toml").read_text()
     assert isinstance(config_file, str)
