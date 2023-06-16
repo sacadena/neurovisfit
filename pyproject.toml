@@ -97,6 +97,11 @@ mkdocs = "^1.4.2"
 mkdocs-material = "^8.5.10"
 mkdocstrings = {extras = ["python"], version = "^0.19.0"}
 
+
+[tool.poetry.group.analysis.dependencies]
+jupyterlab = "^4.0.2"
+matplotlib = "^3.7.1"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
