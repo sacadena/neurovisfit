@@ -59,7 +59,7 @@ target-version = ['py37']
 preview = true
 
 [tool.mypy]
-files = ["cookie_test"]
+files = ["neurovisfit"]
 exclude = ["tests/*"]
 incremental = "False"
 disallow_untyped_defs = "True"
