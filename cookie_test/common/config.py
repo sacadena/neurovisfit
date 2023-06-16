@@ -31,6 +31,8 @@ class TomlConfig:
             raise ValueError(f"Could not find configuration file {self._file_path}")
 
     def get_dict(self, key: str) -> Dict[str, Any]:
+        if key not in self._dict:
+            raise ValueError(f"{key} is not among dict keys")
         d = self._dict.get(key, {})
         if not isinstance(d, dict):
             raise ValueError(f"Not a dictionary: {key}")

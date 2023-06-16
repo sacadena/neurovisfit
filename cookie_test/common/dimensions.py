@@ -30,7 +30,7 @@ def get_io_dims(data_loader: DataLoader) -> Any:
     if hasattr(items, "items"):  # if dict like
         return {k: v.shape for k, v in items.items()}
     else:
-        return (v.shape for v in items)
+        return tuple(v.shape for v in items)
 
 
 def get_dims_for_loader_dict(dataloaders: Dict[str, DataLoader]) -> Dict[str, Any]:

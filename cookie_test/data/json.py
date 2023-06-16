@@ -8,7 +8,7 @@ import numpy as np
 
 def save_json_stats(file: Path, stats: Dict[str, Any]) -> None:
     for k, v in stats.items():
-        if type(v) is np.float32:
+        if type(v) is np.float32 or type(v) is float:
             stats[k] = str(round(v, 5))
     with file.open("w") as f:
         json.dump(stats, f)

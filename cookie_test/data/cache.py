@@ -6,7 +6,6 @@ from typing import Tuple
 
 import numpy as np
 import torch
-from multiprocess import Pool
 from PIL import Image
 from tqdm import tqdm
 
@@ -68,6 +67,8 @@ class ImageCache:
         print("Loading and caching transformed images ...")
 
         if self.parallelized:
+            from multiprocess.pool import Pool
+
             # Use multiprocessing to load and transform images in parallel
             with Pool() as pool, tqdm(total=len(items), position=0, leave=True) as pbar:
                 # This does not update the cache

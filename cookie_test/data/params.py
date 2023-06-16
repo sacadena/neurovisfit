@@ -159,7 +159,7 @@ class ImageTransform(BaseModel):
         if image.ndim == 2:
             image = image[None, ...]
         else:
-            image = image[None, ...].permute(0, 3, 1, 2)
+            image = image[None, ...].transpose(0, 3, 1, 2)
 
         return self.normalize(torch.tensor(image), self.mean_images, self.std_images)
 
