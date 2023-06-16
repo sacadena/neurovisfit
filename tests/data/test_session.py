@@ -1,6 +1,6 @@
 import numpy as np
 
-from cookie_test.data.session import Session
+from neurovisfit.data.session import Session
 
 
 def test_session_from_path(mock_session_path, mock_responses):

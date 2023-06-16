@@ -1,6 +1,6 @@
 import numpy as np
 
-from cookie_test.common.splits import get_train_val_split
+from neurovisfit.common.splits import get_train_val_split
 
 
 def test_get_train_val_split():

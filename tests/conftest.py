@@ -6,8 +6,8 @@ import numpy as np
 import pytest
 from PIL import Image
 
-from cookie_test.common.config import TomlConfig
-from cookie_test.data.cache import ImageCache
+from neurovisfit.common.config import TomlConfig
+from neurovisfit.data.cache import ImageCache
 
 
 @pytest.fixture

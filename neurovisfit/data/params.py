@@ -24,9 +24,9 @@ from pydantic import PositiveInt
 from pydantic import validator
 from skimage.transform import rescale
 
-from cookie_test import data
-from cookie_test.common.config import get_config_file
-from cookie_test.common.config import TomlConfig
+from neurovisfit import data
+from neurovisfit.common.config import get_config_file
+from neurovisfit.common.config import TomlConfig
 
 PathLike = Union[str, os.PathLike]
 

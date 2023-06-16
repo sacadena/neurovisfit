@@ -1,15 +1,15 @@
-# coockie-test
+# neurovisfit
 
-[![Release](https://img.shields.io/github/v/release/sacadena/coockie-test)](https://img.shields.io/github/v/release/sacadena/coockie-test)
-[![Build status](https://img.shields.io/github/actions/workflow/status/sacadena/coockie-test/main.yml?branch=main)](https://github.com/sacadena/coockie-test/actions/workflows/main.yml?query=branch%3Amain)
-[![codecov](https://codecov.io/gh/sacadena/coockie-test/branch/main/graph/badge.svg)](https://codecov.io/gh/sacadena/coockie-test)
-[![Commit activity](https://img.shields.io/github/commit-activity/m/sacadena/coockie-test)](https://img.shields.io/github/commit-activity/m/sacadena/coockie-test)
-[![License](https://img.shields.io/github/license/sacadena/coockie-test)](https://img.shields.io/github/license/sacadena/coockie-test)
+[![Release](https://img.shields.io/github/v/release/sacadena/neurovisfit)](https://img.shields.io/github/v/release/sacadena/neurovisfit)
+[![Build status](https://img.shields.io/github/actions/workflow/status/sacadena/neurovisfit/main.yml?branch=main)](https://github.com/sacadena/neurovisfit/actions/workflows/main.yml?query=branch%3Amain)
+[![codecov](https://codecov.io/gh/sacadena/neurovisfit/branch/main/graph/badge.svg)](https://codecov.io/gh/sacadena/neurovisfit)
+[![Commit activity](https://img.shields.io/github/commit-activity/m/sacadena/neurovisfit)](https://img.shields.io/github/commit-activity/m/sacadena/neurovisfit)
+[![License](https://img.shields.io/github/license/sacadena/neurovisfit)](https://img.shields.io/github/license/sacadena/neurovisfit)
 
 This is a template repository for Python projects that use Poetry for their dependency management.
 
-- **Github repository**: <https://github.com/sacadena/coockie-test/>
-- **Documentation** <https://sacadena.github.io/coockie-test/>
+- **Github repository**: <https://github.com/sacadena/neurovisfit/>
+- **Documentation** <https://sacadena.github.io/neurovisfit/>
 
 ## Getting started with your project
 
@@ -19,7 +19,7 @@ First, create a repository on GitHub with the same name as this project, and the
 git init -b main
 git add .
 git commit -m "init commit"
-git remote add origin git@github.com:sacadena/coockie-test.git
+git remote add origin git@github.com:sacadena/neurovisfit
 git push -u origin main
 ```
 

@@ -25,8 +25,8 @@ from .params import ImageTransform
 from .params import ProcessTimeBins
 from .params import TrainWithFractionOfImages
 from .session import Session
-from cookie_test.common.hash import make_hash
-from cookie_test.common.splits import get_train_val_split
+from neurovisfit.common.hash import make_hash
+from neurovisfit.common.splits import get_train_val_split
 
 
 def get_loader_split(
