@@ -22,7 +22,7 @@ scipy = "^1.9.1"
 pydantic = "^1.10.8"
 neuralpredictors = "^0.3.0"
 scikit-image = "^0.20.0"
-# cornet = { git = "https://github.com/sacadena/CORnet.git", branch = "master" }
+cornet = { git = "https://github.com/sacadena/CORnet.git", branch = "master" }
 ptrnets = { git = "https://github.com/sacadena/ptrnets.git", branch = "master" }
 visualpriors = { git = "https://github.com/sacadena/midlevel-reps.git", branch = "visualpriors", tag = "0.3.5" }
 tomli = "^2.0.1"
