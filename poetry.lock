@@ -537,6 +537,29 @@ test = ["Pillow", "contourpy[test-no-images]", "matplotlib"]
 test-no-images = ["pytest", "pytest-cov", "wurlitzer"]
 
 [[package]]
+name = "CORnet"
+version = "0.1.0"
+description = ""
+optional = false
+python-versions = "*"
+files = []
+develop = false
+
+[package.dependencies]
+fire = "*"
+numpy = "*"
+pandas = "*"
+torch = ">=0.4.0"
+torchvision = "*"
+tqdm = "*"
+
+[package.source]
+type = "git"
+url = "https://github.com/sacadena/CORnet.git"
+reference = "master"
+resolved_reference = "5f4cec469474790a471bdae10318471a85f8b2b8"
+
+[[package]]
 name = "coverage"
 version = "7.2.7"
 description = "Code coverage measurement for Python"
@@ -768,6 +791,20 @@ files = [
 [package.extras]
 docs = ["furo (>=2023.5.20)", "sphinx (>=7.0.1)", "sphinx-autodoc-typehints (>=1.23,!=1.23.4)"]
 testing = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "diff-cover (>=7.5)", "pytest (>=7.3.1)", "pytest-cov (>=4.1)", "pytest-mock (>=3.10)", "pytest-timeout (>=2.1)"]
+
+[[package]]
+name = "fire"
+version = "0.5.0"
+description = "A library for automatically generating command line interfaces."
+optional = false
+python-versions = "*"
+files = [
+    {file = "fire-0.5.0.tar.gz", hash = "sha256:a6b0d49e98c8963910021f92bba66f65ab440da2982b78eb1bbf95a0a34aacc6"},
+]
+
+[package.dependencies]
+six = "*"
+termcolor = "*"
 
 [[package]]
 name = "fonttools"
@@ -3369,6 +3406,20 @@ files = [
 mpmath = ">=0.19"
 
 [[package]]
+name = "termcolor"
+version = "2.3.0"
+description = "ANSI color formatting for output in terminal"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "termcolor-2.3.0-py3-none-any.whl", hash = "sha256:3afb05607b89aed0ffe25202399ee0867ad4d3cb4180d98aaf8eefa6a5f7d475"},
+    {file = "termcolor-2.3.0.tar.gz", hash = "sha256:b5b08f68937f138fe92f6c089b99f1e2da0ae56c52b78bf7075fd95420fd9a5a"},
+]
+
+[package.extras]
+tests = ["pytest", "pytest-cov"]
+
+[[package]]
 name = "terminado"
 version = "0.17.1"
 description = "Tornado websocket backend for the Xterm.js Javascript terminal emulator library."
@@ -3813,13 +3864,13 @@ files = [
 
 [[package]]
 name = "websocket-client"
-version = "1.5.3"
+version = "1.6.0"
 description = "WebSocket client for Python with low level API options"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "websocket-client-1.5.3.tar.gz", hash = "sha256:b96f3bce3e54e3486ebe6504bc22bd4c140392bd2eb71764db29be8f2639aa65"},
-    {file = "websocket_client-1.5.3-py3-none-any.whl", hash = "sha256:3566f8467cd350874c4913816355642a4942f6c1ed1e9406e3d42fae6d6c072a"},
+    {file = "websocket-client-1.6.0.tar.gz", hash = "sha256:e84c7eafc66aade6d1967a51dfd219aabdf81d15b9705196e11fd81f48666b78"},
+    {file = "websocket_client-1.6.0-py3-none-any.whl", hash = "sha256:72d7802608745b0a212f79b478642473bd825777d8637b6c8c421bf167790d4f"},
 ]
 
 [package.extras]
@@ -3859,4 +3910,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<3.12"
-content-hash = "906df38a018bb1dc42d6a417312ddcf77d4fcc5d5bd72d3562f10f63dafcfc25"
+content-hash = "d13df6de1c95813635123c0e15d97e8aaf1a5d0fa17ed21109884f02ec7d3c3a"
