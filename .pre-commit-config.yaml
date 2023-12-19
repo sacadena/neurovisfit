@@ -3,7 +3,7 @@ repos:
     rev: "v2.2.1"
     hooks:
     -   id: codespell
-        name: 'Lyft: english grammar'
+        name: 'English grammar'
         args: [--skip=*.yaml]
 -   repo: https://github.com/psf/black
     rev: 23.1.0
