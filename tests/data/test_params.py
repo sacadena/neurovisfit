@@ -14,10 +14,10 @@ def test_crop_from_sequence():
     crop_sequence = [1, 2, 3, 4]
     crop = Crop.from_sequence(crop_sequence)
 
-    assert crop.left == 1
-    assert crop.right == 2
-    assert crop.top == 3
-    assert crop.bottom == 4
+    assert crop.top == 1
+    assert crop.bottom == 2
+    assert crop.left == 3
+    assert crop.right == 4
 
 
 def test_aggregate_bins():

@@ -16,6 +16,4 @@ COPY poetry.lock pyproject.toml /code/
 RUN poetry install --no-interaction --no-ansi --no-root --no-dev
 
 # Copy Python code to the Docker image
-COPY cookie_test /code/neurovisfit/
-
-CMD [ "python", "neurovisfit/foo.py"]
+COPY neurovisfit /code/neurovisfit/
