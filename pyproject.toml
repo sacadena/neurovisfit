@@ -127,6 +127,7 @@ skip_missing = true
 skip_transitive = true
 skip_misplaced_dev = true
 ignore_obsolete = [
+    "mkdocs",
     "h5py",
     "ptrnets",
     "scipy",
