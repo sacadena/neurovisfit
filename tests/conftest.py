@@ -66,6 +66,8 @@ def mock_data_path(tmpdir):
     (temp_dir / "images").mkdir()
     image = Image.fromarray((np.random.randn(10, 10) * 255).astype(np.uint8))
     image.save(temp_dir / "images/000001.png")
+    image = Image.fromarray((np.random.randn(10, 10) * 255).astype(np.uint8))
+    image.save(temp_dir / "images/000002.png")
     for session in range(1, 4):
         for split in ("train", "test"):
             session_path = temp_dir / f"{split}/session{session}"
@@ -74,6 +76,7 @@ def mock_data_path(tmpdir):
                 writer = csv.writer(f)
                 writer.writerow(["responses", "image_id"])
                 writer.writerow(["[[0, 1, 0],[1, 1, 0]]", "1"])
+                writer.writerow(["[[1, 1, 0],[0, 1, 0]]", "2"])
             with (session_path / "meta_data.json").open("w") as f:
                 json.dump({"subject_id": "001", "session_id": "123"}, f)
     return temp_dir
@@ -88,7 +91,7 @@ def mock_toml_config(tmp_path, mock_data_path):
     batch_size = 32
     validation_fraction = 0.2
     seed = 42
-    include_prev_image = true
+    include_prev_image = false
     include_trial_id = false
 
     [some_data_name.data]
@@ -114,6 +117,11 @@ def mock_toml_config(tmp_path, mock_data_path):
     file_path = tmp_path / "test_config.toml"
     with open(file_path, "w") as f:
         f.write(toml_data)
+
+    # Create an instance of TomlConfig for testing
+    toml_config = TomlConfig(file_path)
+
+    return toml_config
 
     # Create an instance of TomlConfig for testing
     toml_config = TomlConfig(file_path)

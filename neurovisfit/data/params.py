@@ -33,18 +33,18 @@ PathLike = Union[str, os.PathLike]
 
 @dataclass
 class Crop:
-    left: int
-    right: int
     top: int
     bottom: int
+    left: int
+    right: int
 
     @staticmethod
     def from_sequence(crop_sequence: Sequence[int]) -> Crop:
         return Crop(
-            left=crop_sequence[0],
-            right=crop_sequence[1],
-            top=crop_sequence[2],
-            bottom=crop_sequence[3],
+            top=crop_sequence[0],
+            bottom=crop_sequence[1],
+            left=crop_sequence[2],
+            right=crop_sequence[3],
         )
 
 
@@ -97,7 +97,7 @@ class ImageTransform(BaseModel):
     @validator("crop")
     def validate_crop(cls, v: Any) -> Crop:
         if isinstance(v, int):
-            return Crop(left=v, right=v, top=v, bottom=v)
+            return Crop(top=v, bottom=v, left=v, right=v)
         if isinstance(v, list):
             return Crop.from_sequence(v)
         if isinstance(v, tuple):
@@ -125,7 +125,7 @@ class ImageTransform(BaseModel):
     def normalize(x: torch.Tensor, mean: float, std: float) -> torch.Tensor:
         return (x - mean) / std
 
-    def transform(self, image: Image) -> torch.Tensor:
+    def transform(self, image: Image.Image) -> torch.Tensor:
         """
         Transforms the image in the following order: crop, subsample, rescale,
         add channel axis, convert to torch tensor.

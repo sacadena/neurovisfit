@@ -54,6 +54,7 @@ def get_loader_split(
 
     # Select images for train and validation
     train_image_ids, validation_image_ids = None, None
+    batch_size = batch_size or params.batch_size
     if data_split.value == "train":
         train_image_ids, validation_image_ids = get_train_val_split(
             n=len(image_cache),
@@ -124,11 +125,15 @@ def get_loader_split(
     return dict(dataloaders)
 
 
-def _get_dataloaders_from_params(params: DataLoaderParams) -> Dict[str, Dict[str, DataLoader]]:
+def _get_dataloaders_from_params(
+    params: DataLoaderParams,
+    shuffle: bool = True,
+) -> Dict[str, Dict[str, DataLoader]]:
     """
     Create a dataloader from a DataLoaderParams object
     Args:
         params: DataLoaderParams object
+        shuffle: Shuffle samples in data loader
     Returns:
         Dictionary with keys "train", "test", and "validation" containing session dataloaders
     """
@@ -157,11 +162,17 @@ def _get_dataloaders_from_params(params: DataLoaderParams) -> Dict[str, Dict[str
         stats_data["std_images"] = std
         save_json_stats(stats_path, stats_data)
 
-    test_loader = get_loader_split(params=params, image_cache=image_cache, data_split=DataSplit("test"))
+    test_loader = get_loader_split(
+        params=params,
+        image_cache=image_cache,
+        data_split=DataSplit("test"),
+        shuffle=shuffle,
+    )
     train_loader = get_loader_split(
         params=params,
         image_cache=image_cache,
         data_split=DataSplit("train"),
+        shuffle=shuffle,
     )
 
     return {**train_loader, **test_loader}
