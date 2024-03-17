@@ -28,7 +28,6 @@ multiprocess = "^0.70.14"
 mkdocs = "^1.4.3"
 
 
-
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
 pytest-cov = "^4.0.0"
@@ -127,3 +126,9 @@ source = ["neurovisfit"]
 skip_missing = true
 skip_transitive = true
 skip_misplaced_dev = true
+ignore_obsolete = [
+    "h5py",
+    "ptrnets",
+    "scipy",
+	"torchvision"
+]
