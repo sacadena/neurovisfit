@@ -1,7 +1,6 @@
 from typing import Any
 from typing import Dict
 from typing import Optional
-from typing import Union
 
 import torch
 from neuralpredictors.layers.readouts import MultiReadoutBase
@@ -38,5 +37,5 @@ class Model(nn.Module):
         x = self.non_linearity(x)
         return x
 
-    def regularizer(self, data_key: Optional[str] = None) -> Union[int, torch.Tensor]:
+    def regularizer(self, data_key: Optional[str] = None) -> int:
         return self.core.regularizer() + self.readout.regularizer(data_key=data_key)
