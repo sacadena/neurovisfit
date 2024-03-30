@@ -18,6 +18,9 @@ class Core2d(nn.Module):
         if cuda:
             self.cuda()
 
+    def regularizer(self) -> int:
+        return 0
+
     @staticmethod
     def init_conv(m: nn.Module) -> None:
         if isinstance(m, nn.Conv2d):
@@ -138,9 +141,6 @@ class TaskDrivenCore(Core2d):
 
         input_ = self.features(input_)
         return input_
-
-    def regularizer(self) -> int:
-        return 0  # useful for final loss
 
     def probe_model(self) -> Callable:
         named_modules = [n for n, _ in self.model.named_modules()]
