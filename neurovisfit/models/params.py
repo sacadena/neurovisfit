@@ -6,6 +6,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 from typing import Sequence
+from typing import Tuple
 
 import numpy as np
 from pydantic import BaseModel
@@ -30,8 +31,6 @@ class GaussianType(Enum):
 
 
 class FullGaussian2dReadoutParams(BaseModel):
-    in_shape: Sequence
-    outdims: int
     bias: bool
     init_mu_range: float
     init_sigma: float
@@ -49,7 +48,7 @@ class FullGaussian2dReadoutParams(BaseModel):
 @dataclass
 class SessionsDataLoaderSettings:
     num_neurons_per_session: Dict[str, int]
-    input_shape_per_session: Dict[str, Sequence[int]]
+    input_shape_per_session: Dict[str, Tuple[int, ...]]
 
     @classmethod
     def from_dataloader(
@@ -86,7 +85,7 @@ class SessionsDataLoaderSettings:
 class MultiSessionReadoutParams(BaseModel):
     sessions_dataloader_settings: SessionsDataLoaderSettings  # needed to shape readouts
     base_readout_params: FullGaussian2dReadoutParams
-    mean_activity: Optional[Dict[str, Sequence[int]]]
+    mean_activity: Optional[Dict[str, Sequence[int]]] = None
     clone_readout: bool = False
 
 
