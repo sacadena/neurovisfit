@@ -93,10 +93,7 @@ def mock_toml_config(tmp_path, mock_data_path):
     seed = 42
     include_prev_image = false
     include_trial_id = false
-
-    [some_data_name.data]
-    path = "{str(mock_data_path)}"
-    exclude = []
+    data_path = "{str(mock_data_path)}"
 
     [some_data_name.image_transform]
     subsample = 1
@@ -117,11 +114,6 @@ def mock_toml_config(tmp_path, mock_data_path):
     file_path = tmp_path / "test_config.toml"
     with open(file_path, "w") as f:
         f.write(toml_data)
-
-    # Create an instance of TomlConfig for testing
-    toml_config = TomlConfig(file_path)
-
-    return toml_config
 
     # Create an instance of TomlConfig for testing
     toml_config = TomlConfig(file_path)

@@ -6,12 +6,14 @@ from ..common.random import set_random_seed
 from .core import TaskDrivenCore
 from .model import Model
 from .nonlinearity import EluNonLinearity
-from .params import TaskDrivenModelParams
+from .params import SessionsDataLoaderSettings
+from .params import TaskDrivenModelGaussianReadoutParams
 from .readout import MultiReadoutFullGaussian2d
 
 
 def task_driven_core_gauss_readout(
-    params: TaskDrivenModelParams,
+    params: TaskDrivenModelGaussianReadoutParams,
+    sessions_dataloader_settings: SessionsDataLoaderSettings,
     seed: Optional[int] = None,
 ) -> Model:
     # Set up core
@@ -20,12 +22,9 @@ def task_driven_core_gauss_readout(
         set_random_seed(seed)
     core.initialize()
 
-    # Sessions data settings
-    sessions_dataloader_settings = params.readout_params.sessions_dataloader_settings
-
     # Core output shapes per sessions
     core_output_shape_per_session = {
-        session: get_module_output(core, input_shape[1:])
+        session: get_module_output(core, input_shape)[1:]
         for session, input_shape in sessions_dataloader_settings.input_shape_per_session.items()
     }
 

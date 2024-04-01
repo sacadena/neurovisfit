@@ -8,8 +8,11 @@ from typing import Optional
 from typing import Sequence
 from typing import Tuple
 
-import numpy as np
 from pydantic import BaseModel
+
+from ..common.config import get_config_file
+from ..common.config import TomlConfig
+from neurovisfit import models
 
 
 class TaskDrivenCoreParams(BaseModel):
@@ -36,12 +39,11 @@ class FullGaussian2dReadoutParams(BaseModel):
     init_sigma: float
     batch_sample: bool
     align_corners: bool
-    gauss_type: GaussianType = GaussianType.FULL
+    gauss_type: str = GaussianType.FULL.value
     grid_mean_predictor: Optional[Any] = None
     shared_features: Optional[Any] = None
     shared_grid: Optional[Any] = None
-    source_grid: Optional[np.ndarray] = None
-    mean_activity: Optional[Sequence[int]] = None
+    source_grid: Optional[Any] = None
     feature_reg_weight: float = 1.0
 
 
@@ -51,7 +53,7 @@ class SessionsDataLoaderSettings:
     input_shape_per_session: Dict[str, Tuple[int, ...]]
 
     @classmethod
-    def from_dataloader(
+    def from_dataloaders(
         cls,
         dataloaders: Dict[str, Any],
     ) -> SessionsDataLoaderSettings:
@@ -82,8 +84,7 @@ class SessionsDataLoaderSettings:
         )
 
 
-class MultiSessionReadoutParams(BaseModel):
-    sessions_dataloader_settings: SessionsDataLoaderSettings  # needed to shape readouts
+class MultiReadoutFullGaussian2dParams(BaseModel):
     base_readout_params: FullGaussian2dReadoutParams
     mean_activity: Optional[Dict[str, Sequence[int]]] = None
     clone_readout: bool = False
@@ -93,8 +94,14 @@ class EluNonLinearityParams(BaseModel):
     offset: float = -1.0
 
 
-class TaskDrivenModelParams(BaseModel):
-    seed: int
+class TaskDrivenModelGaussianReadoutParams(BaseModel):
     core_params: TaskDrivenCoreParams
-    readout_params: MultiSessionReadoutParams
+    readout_params: MultiReadoutFullGaussian2dParams
     non_linearity_params: EluNonLinearityParams
+
+
+def get_params_from_config(model_name: str) -> Dict[str, Any]:
+    config = TomlConfig(file_path=get_config_file(package=models))
+    if model_name not in config.available_keys:
+        raise ValueError(f"Model {model_name} not found in config.toml file")
+    return config.get_dict(model_name)

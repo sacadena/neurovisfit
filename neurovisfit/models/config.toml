@@ -1,0 +1,31 @@
+[v1__core_resnet50_l2_01_layer_2_0__readout_gauss]
+name = "v1__core_resnet50_l2_01_layer_2_0__readout_gauss"
+dataset = "v1_data_cadena_et_al_2023"
+model_function = "neurovisfit.models.task_driven.task_driven_core_gauss_readout"
+seed = 42
+
+[v1__core_resnet50_l2_01_layer_2_0__readout_gauss.core_params]
+input_channels = 1
+model_name = 'resnet50_l2_eps0_1'
+layer_name = 'layer2.0'
+pretrained = true
+bias = false
+final_batchnorm = true
+final_nonlinearity = true
+momentum = 0.1
+fine_tune = false
+
+[v1__core_resnet50_l2_01_layer_2_0__readout_gauss.readout_params]
+clone_readout = false
+
+[v1__core_resnet50_l2_01_layer_2_0__readout_gauss.readout_params.base_readout_params]
+bias = true
+init_mu_range = 0.1
+init_sigma = 1
+batch_sample = false
+align_corners = false
+gauss_type = 'full'
+feature_reg_weight = 1.0
+
+[v1__core_resnet50_l2_01_layer_2_0__readout_gauss.non_linearity_params]
+offset = -1.0

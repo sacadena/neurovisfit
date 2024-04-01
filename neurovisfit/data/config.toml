@@ -6,10 +6,7 @@ validation_fraction = 0.2
 seed = 42
 include_prev_image = false
 include_trial_id = false
-
-[v1_data_cadena_et_al_2023.data]
-path = "data/v1_data"
-exclude = []
+data_path = "data/v1_data"  # Modify to point to the path in disk holding the data
 
 [v1_data_cadena_et_al_2023.image_transform]
 subsample = 1
@@ -35,10 +32,7 @@ validation_fraction = 0.2
 seed = 42
 include_prev_image = false
 include_trial_id = false
-
-[v4_data_cadena_et_al_2023.data]
-path = "data/v4_data"
-exclude = []
+data_path = "data/v4_data"
 
 [v4_data_cadena_et_al_2023.image_transform]
 subsample = 1

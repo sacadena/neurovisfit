@@ -19,9 +19,9 @@ from .dataset import NamedDataSplit
 from .json import load_json_stats
 from .json import save_json_stats
 from .params import DataLoaderParams
-from .params import DataPath
 from .params import get_params_from_config
 from .params import ImageTransform
+from .params import PathLike
 from .params import ProcessTimeBins
 from .params import TrainWithFractionOfImages
 from .session import Session
@@ -62,7 +62,7 @@ def get_loader_split(
             seed=params.seed,
         )
 
-    session_paths = params.data.train_sessions if data_split.value == "train" else params.data.test_sessions
+    session_paths = params.train_sessions if data_split.value == "train" else params.test_sessions
 
     dataloaders: Dict[str, Dict[str, DataLoader]] = defaultdict(dict)
     print(f"Building {data_split.value} dataloaders for all sessions ...")
@@ -140,7 +140,7 @@ def _get_dataloaders_from_params(
 
     # Load image statistics if present
     params_hash = make_hash(params.dict())
-    stats_path = params.data.path / f"cached_stats_config={params_hash}.json"
+    stats_path = params.data_path / f"cached_stats_config={params_hash}.json"
 
     if stats_path.is_file():
         stats_config = load_json_stats(stats_path)
@@ -148,7 +148,7 @@ def _get_dataloaders_from_params(
         params.image_transform.std_images = float(np.float32(stats_config.get("std_images")))
 
     image_cache = ImageCache(
-        path=params.data.path / "images",
+        path=params.data_path / "images",
         image_transformation=params.image_transform,
         filename_precision=6,
     )
@@ -180,7 +180,7 @@ def _get_dataloaders_from_params(
 
 def get_dataloaders(
     dataset_name: Optional[str] = "default",
-    data: Optional[DataPath] = None,
+    data_path: Optional[PathLike] = None,
     image_transform: Optional[ImageTransform] = None,
     process_time_bins: Optional[ProcessTimeBins] = None,
     batch_size: Optional[NonNegativeInt] = None,
@@ -196,7 +196,7 @@ def get_dataloaders(
     These arguments override the parameters in the config.toml file if they are not None.
     Args:
         dataset_name: name of the dataset to load from the config.toml file
-        data: DataPath object
+        data_path: PathLike object
         image_transform: ImageTransform object
         process_time_bins: ProcessTimeBins object
         batch_size: batch size
@@ -215,15 +215,15 @@ def get_dataloaders(
     # Create input params dict
     params_input: Dict[str, Any] = {}
     for name, field in zip(
-        ("data", "image_transform", "process_time_bins", "train_with_fraction_of_images"),
-        (data, image_transform, process_time_bins, train_with_fraction_of_images),
+        ("image_transform", "process_time_bins", "train_with_fraction_of_images"),
+        (image_transform, process_time_bins, train_with_fraction_of_images),
     ):
         if field is not None:
             params_input[name] = field.dict()
 
     for name, field_num in zip(
-        ("batch_size", "validation_fraction", "seed", "include_prev_image", "include_trial_id"),
-        (batch_size, validation_fraction, seed, include_prev_image, include_trial_id),
+        ("data_path", "batch_size", "validation_fraction", "seed", "include_prev_image", "include_trial_id"),
+        (data_path, batch_size, validation_fraction, seed, include_prev_image, include_trial_id),
     ):
         if field_num is not None:
             params_input[name] = field_num
