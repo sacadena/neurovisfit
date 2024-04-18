@@ -15,8 +15,7 @@ def test_toml_config_get_dict(mock_toml_config, mock_data_path):
     assert database_config["seed"] == 42
     assert database_config["include_prev_image"] is False
     assert database_config["include_trial_id"] is False
-    assert database_config["data"]["path"] == str(mock_data_path)
-    assert database_config["data"]["exclude"] == []
+    assert database_config["data_path"] == str(mock_data_path)
     assert database_config["image_transform"]["subsample"] == 1
     assert database_config["image_transform"]["crop"] == [2, 2, 2, 2]
     assert database_config["image_transform"]["scale"] == 1.0
