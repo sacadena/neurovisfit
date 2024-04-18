@@ -37,5 +37,5 @@ class Model(nn.Module):
         x = self.non_linearity(x)
         return x
 
-    def regularizer(self, data_key: Optional[str] = None) -> int:
+    def regularizer(self, data_key: Optional[str] = None) -> float:
         return self.core.regularizer() + self.readout.regularizer(data_key=data_key)

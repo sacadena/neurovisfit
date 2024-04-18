@@ -55,14 +55,14 @@ def get_loader_split(
     # Select images for train and validation
     train_image_ids, validation_image_ids = None, None
     batch_size = batch_size or params.batch_size
-    if data_split.value == "train":
+    if data_split.value == DataSplit.TRAIN.value:
         train_image_ids, validation_image_ids = get_train_val_split(
             n=len(image_cache),
             train_frac=1 - params.validation_fraction,
             seed=params.seed,
         )
 
-    session_paths = params.train_sessions if data_split.value == "train" else params.test_sessions
+    session_paths = params.train_sessions if data_split.value == DataSplit.TRAIN.value else params.test_sessions
 
     dataloaders: Dict[str, Dict[str, DataLoader]] = defaultdict(dict)
     print(f"Building {data_split.value} dataloaders for all sessions ...")
@@ -77,7 +77,7 @@ def get_loader_split(
             extra_arrays["trial_ids"] = session.trial_ids
 
         named_data_splits: List[NamedDataSplit] = []
-        if data_split.value == "train":
+        if data_split.value == DataSplit.TRAIN.value:
             for sub_split, sub_split_ids in zip(("train", "validation"), (train_image_ids, validation_image_ids)):
                 named_data_splits.append(
                     NamedDataSplit(
@@ -94,7 +94,7 @@ def get_loader_split(
         else:
             named_data_splits.append(
                 NamedDataSplit(
-                    "test",
+                    DataSplit.TEST.value,
                     InputResponseSelector(
                         image_ids=session.image_ids,
                         responses=session.responses,

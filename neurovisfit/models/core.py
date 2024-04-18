@@ -18,7 +18,7 @@ class Core2d(nn.Module):
         if cuda:
             self.cuda()
 
-    def regularizer(self) -> int:
+    def regularizer(self) -> float:
         return 0
 
     @staticmethod
