@@ -103,7 +103,6 @@ class Trainer:
         start_epoch: Optional[int] = None,
     ) -> None:
         model.train()
-        print("Start")
         for epoch, val_obj in early_stopping(
             model,
             self.stop_closure,
@@ -118,8 +117,6 @@ class Trainer:
             scheduler=self.scheduler,
             lr_decay_steps=self.params.lr_decay_steps,
         ):
-            print(f"Epoch: {epoch}")
-
             # print the quantities from tracker
             if self.params.verbose and self.tracker is not None:
                 print("=======================================")
@@ -137,8 +134,6 @@ class Trainer:
                 total=self.n_iterations,
                 desc="Epoch {}".format(epoch),
             ):
-                print("here")
-
                 loss = self.full_objective(
                     model=model,
                     dataset_len=len(dataloaders[DataSplit.TRAIN.value][data_key].dataset),
@@ -188,7 +183,7 @@ class Trainer:
 
     def get_tracker(self, model: Model, validation_dataloader: Dict[str, DataLoader]) -> MultipleObjectiveTracker:
         if self.params.track_training is None:
-            return None
+            return
         tracker_scores = dict(
             correlation=partial(
                 ScorerNames.CORRELATION.function,

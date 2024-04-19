@@ -19,12 +19,12 @@ fine_tune = false
 clone_readout = false
 [v1__core_resnet50_l2_01_layer_2_0__readout_gauss.readout_params.base_readout_params]
 bias = true
-init_mu_range = 0.1
-init_sigma = 1
+init_mu_range = 0.4
+init_sigma = 0.6
 batch_sample = false
 align_corners = false
-gauss_type = 'full'
-feature_reg_weight = 1.0
+gauss_type = 'isotropic'
+feature_reg_weight = 3.0
 [v1__core_resnet50_l2_01_layer_2_0__readout_gauss.non_linearity_params]
 offset = -1.0
 
@@ -49,11 +49,11 @@ fine_tune = false
 clone_readout = false
 [v4__core_resnet50_l2_01_layer_3_0__readout_gauss.readout_params.base_readout_params]
 bias = true
-init_mu_range = 0.1
-init_sigma = 1
+init_mu_range = 0.4
+init_sigma = 0.6
 batch_sample = false
 align_corners = false
-gauss_type = 'full'
-feature_reg_weight = 1.0
+gauss_type = 'isotropic'
+feature_reg_weight = 3.0
 [v4__core_resnet50_l2_01_layer_3_0__readout_gauss.non_linearity_params]
 offset = -1.0

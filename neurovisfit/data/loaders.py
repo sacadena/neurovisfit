@@ -161,6 +161,8 @@ def _get_dataloaders_from_params(
         stats_data["mean_images"] = mean
         stats_data["std_images"] = std
         save_json_stats(stats_path, stats_data)
+    else:
+        _ = image_cache.images  # Cache images
 
     test_loader = get_loader_split(
         params=params,

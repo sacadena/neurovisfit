@@ -86,8 +86,7 @@ def get_poisson_loss(
         )
         loss = output - target * np.log(output + eps)
         poisson_loss[session] = np.mean(loss, axis=0) if avg else np.sum(loss, axis=0)
-        print(f"Session: {session}")
-    print("=== Computed Full loss once ===")
+
     if as_dict:
         return poisson_loss
 
