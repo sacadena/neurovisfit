@@ -201,8 +201,7 @@ class Trainer:
                 avg=False,
             ),
         )
-        if hasattr(model, "tracked_values"):
-            tracker_scores.update(model.tracked_values)
+
         return MultipleObjectiveTracker(**tracker_scores)
 
     def full_objective(
