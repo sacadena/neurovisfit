@@ -1,0 +1,59 @@
+# V1 model with (resnet50_l2_01 | layer 2.0) core and Gaussian readout
+
+[v1__core_resnet50_l2_01_layer_2_0__readout_gauss]
+name = "v1__core_resnet50_l2_01_layer_2_0__readout_gauss"
+dataset = "v1_data_cadena_et_al_2024"
+model_function = "neurovisfit.models.task_driven.task_driven_core_gauss_readout"
+seed = 42
+[v1__core_resnet50_l2_01_layer_2_0__readout_gauss.core_params]
+input_channels = 1
+model_name = 'resnet50_l2_eps0_1'
+layer_name = 'layer2.0'
+pretrained = true
+bias = false
+final_batchnorm = true
+final_nonlinearity = true
+momentum = 0.1
+fine_tune = false
+[v1__core_resnet50_l2_01_layer_2_0__readout_gauss.readout_params]
+clone_readout = false
+[v1__core_resnet50_l2_01_layer_2_0__readout_gauss.readout_params.base_readout_params]
+bias = true
+init_mu_range = 0.4
+init_sigma = 0.6
+batch_sample = false
+align_corners = false
+gauss_type = 'isotropic'
+feature_reg_weight = 3.0
+[v1__core_resnet50_l2_01_layer_2_0__readout_gauss.non_linearity_params]
+offset = -1.0
+
+# V4 model with (resnet50_l2_01 | layer 3.0) core and Gaussian readout
+
+[v4__core_resnet50_l2_01_layer_3_0__readout_gauss]
+name = "v4__core_resnet50_l2_01_layer_3_0__readout_gauss"
+dataset = "v4_data_cadena_et_al_2024"
+model_function = "neurovisfit.models.task_driven.task_driven_core_gauss_readout"
+seed = 42
+[v4__core_resnet50_l2_01_layer_3_0__readout_gauss.core_params]
+input_channels = 1
+model_name = 'resnet50_l2_eps0_1'
+layer_name = 'layer3.0'
+pretrained = true
+bias = false
+final_batchnorm = true
+final_nonlinearity = true
+momentum = 0.1
+fine_tune = false
+[v4__core_resnet50_l2_01_layer_3_0__readout_gauss.readout_params]
+clone_readout = false
+[v4__core_resnet50_l2_01_layer_3_0__readout_gauss.readout_params.base_readout_params]
+bias = true
+init_mu_range = 0.4
+init_sigma = 0.6
+batch_sample = false
+align_corners = false
+gauss_type = 'isotropic'
+feature_reg_weight = 3.0
+[v4__core_resnet50_l2_01_layer_3_0__readout_gauss.non_linearity_params]
+offset = -1.0

@@ -191,11 +191,18 @@ class TrainWithFractionOfImages(BaseModel):
         return indices
 
 
-class DataPath(BaseModel):
-    path: Path
-    exclude_sessions: Optional[List[str]]
+class DataLoaderParams(BaseModel):
+    data_path: Path
+    image_transform: ImageTransform
+    process_time_bins: ProcessTimeBins
+    batch_size: NonNegativeInt
+    validation_fraction: PositiveFloat
+    seed: Optional[NonNegativeInt] = None
+    include_prev_image: bool = False
+    include_trial_id: bool = False
+    train_with_fraction_of_images: Optional[TrainWithFractionOfImages] = None
 
-    @validator("path")
+    @validator("data_path")
     def validate_data_path(cls, val: Path) -> Path:
         """Checks that within data_path there is a folder called "images", and folders "train" and "test".
         Also checks that within train and test, there are the same number of folders with the same names.
@@ -224,23 +231,11 @@ class DataPath(BaseModel):
 
     @property
     def train_sessions(self) -> List[Path]:
-        return [f for f in (self.path / "train").iterdir() if f.is_dir()]
+        return [f for f in (self.data_path / "train").iterdir() if f.is_dir()]
 
     @property
     def test_sessions(self) -> List[Path]:
-        return [f for f in (self.path / "test").iterdir() if f.is_dir()]
-
-
-class DataLoaderParams(BaseModel):
-    data: DataPath
-    image_transform: ImageTransform
-    process_time_bins: ProcessTimeBins
-    batch_size: NonNegativeInt
-    validation_fraction: PositiveFloat
-    seed: Optional[NonNegativeInt] = None
-    include_prev_image: bool = False
-    include_trial_id: bool = False
-    train_with_fraction_of_images: Optional[TrainWithFractionOfImages] = None
+        return [f for f in (self.data_path / "test").iterdir() if f.is_dir()]
 
 
 def get_params_from_config(dataset_name: str) -> Dict[str, Any]:

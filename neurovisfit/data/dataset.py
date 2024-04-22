@@ -1,5 +1,6 @@
 from collections import namedtuple
 from enum import Enum
+from functools import cached_property
 from typing import List
 from typing import NamedTuple
 from typing import Optional
@@ -53,11 +54,11 @@ class InputResponseSelector:
             return self.fraction_config.get_indices(sum(self._indices_image_ids))
         return np.ones(sum(self._indices_image_ids), dtype=bool)
 
-    @property
+    @cached_property
     def image_ids(self) -> np.ndarray:
         return self._select(self._image_ids)
 
-    @property
+    @cached_property
     def responses(self) -> np.ndarray:
         return self._select(self._responses)
 
@@ -90,7 +91,11 @@ class ImageResponseDataset(Dataset):
 
             val = getattr(self.named_data_split.data, key)
             if key in ("image_ids", "previous_image_ids"):
-                tensors.append(torch.stack(list(self.image_cache[val[idx]])))  # Turn ids into images
+                cache_ind = val[idx]
+                if isinstance(cache_ind, np.ndarray):
+                    tensors.append(torch.stack([self.image_cache[ci] for ci in cache_ind]))
+                else:
+                    tensors.append(torch.stack(list(self.image_cache[val[idx]])))  # Turn ids into images
             else:
                 tensors.append(torch.from_numpy(val[idx]).to(torch.float))
         return self.DataPoint(*tensors)

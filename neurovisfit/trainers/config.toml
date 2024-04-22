@@ -1,0 +1,20 @@
+[standard_trainer]
+trainer_function = 'neurovisfit.trainers.trainer.train_and_evaluate'
+avg_loss = false
+scale_loss = true
+loss_function = 'PoissonLoss'
+stop_function = 'get_poisson_loss'
+verbose = true
+interval = 1
+patience = 3
+epoch = 0
+lr_init = 0.005
+max_iter = 100
+maximize = false
+tolerance = 1e-6
+restore_best = true
+lr_decay_steps = 4
+lr_decay_factor = 0.3
+min_lr = 0.0001
+track_training = false
+return_test_score = false

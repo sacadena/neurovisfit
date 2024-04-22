@@ -1,57 +1,51 @@
-# V1 data from Cadena et al. 2023
-[v1_data_cadena_et_al_2023]
-dataset = "v1_data_cadena_et_al_2023"
+# V1 data from Cadena et al. 2024
+[v1_data_cadena_et_al_2024]
+dataset = "v1_data_cadena_et_al_2024"
 batch_size = 128
 validation_fraction = 0.2
 seed = 42
 include_prev_image = false
 include_trial_id = false
+data_path = "data/v1_data"  # Modify to point to the path in disk holding the data
 
-[v1_data_cadena_et_al_2023.data]
-path = "data/v1_data"
-exclude = []
-
-[v1_data_cadena_et_al_2023.image_transform]
+[v1_data_cadena_et_al_2024.image_transform]
 subsample = 1
 crop = [70, 70, 70, 70]
 scale = 0.6
 
-[v1_data_cadena_et_al_2023.process_time_bins]
+[v1_data_cadena_et_al_2024.process_time_bins]
 bin_duration_ms = 10
 num_bins = 12
 offset_first_bin_ms = 40
 window_range_ms = [40, 160]
 agg_operation = "sum"
 
-[v1_data_cadena_et_al_2023.train_with_fraction_of_images]
+[v1_data_cadena_et_al_2024.train_with_fraction_of_images]
 fraction = 1.0
 randomize_selection = false
 
-# V4 data from Cadena et al. 2023
-[v4_data_cadena_et_al_2023]
-dataset = "v4_data_cadena_et_al_2023"
+# V4 data from Cadena et al. 2024
+[v4_data_cadena_et_al_2024]
+dataset = "v4_data_cadena_et_al_2024"
 batch_size = 128
 validation_fraction = 0.2
 seed = 42
 include_prev_image = false
 include_trial_id = false
+data_path = "data/v4_data"
 
-[v4_data_cadena_et_al_2023.data]
-path = "data/v4_data"
-exclude = []
-
-[v4_data_cadena_et_al_2023.image_transform]
+[v4_data_cadena_et_al_2024.image_transform]
 subsample = 1
 crop = [68, 0, 126, 126]  # [top, bottom, left, right]
 scale = 0.4
 
-[v4_data_cadena_et_al_2023.process_time_bins]
+[v4_data_cadena_et_al_2024.process_time_bins]
 bin_duration_ms = 10
 num_bins = 12
 offset_first_bin_ms = 40
 window_range_ms = [70, 160]
 agg_operation = "sum"
 
-[v4_data_cadena_et_al_2023.train_with_fraction_of_images]
+[v4_data_cadena_et_al_2024.train_with_fraction_of_images]
 fraction = 1.0
 randomize_selection = false

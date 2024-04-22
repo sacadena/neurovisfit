@@ -19,9 +19,9 @@ from .dataset import NamedDataSplit
 from .json import load_json_stats
 from .json import save_json_stats
 from .params import DataLoaderParams
-from .params import DataPath
 from .params import get_params_from_config
 from .params import ImageTransform
+from .params import PathLike
 from .params import ProcessTimeBins
 from .params import TrainWithFractionOfImages
 from .session import Session
@@ -55,14 +55,14 @@ def get_loader_split(
     # Select images for train and validation
     train_image_ids, validation_image_ids = None, None
     batch_size = batch_size or params.batch_size
-    if data_split.value == "train":
+    if data_split.value == DataSplit.TRAIN.value:
         train_image_ids, validation_image_ids = get_train_val_split(
             n=len(image_cache),
             train_frac=1 - params.validation_fraction,
             seed=params.seed,
         )
 
-    session_paths = params.data.train_sessions if data_split.value == "train" else params.data.test_sessions
+    session_paths = params.train_sessions if data_split.value == DataSplit.TRAIN.value else params.test_sessions
 
     dataloaders: Dict[str, Dict[str, DataLoader]] = defaultdict(dict)
     print(f"Building {data_split.value} dataloaders for all sessions ...")
@@ -77,7 +77,7 @@ def get_loader_split(
             extra_arrays["trial_ids"] = session.trial_ids
 
         named_data_splits: List[NamedDataSplit] = []
-        if data_split.value == "train":
+        if data_split.value == DataSplit.TRAIN.value:
             for sub_split, sub_split_ids in zip(("train", "validation"), (train_image_ids, validation_image_ids)):
                 named_data_splits.append(
                     NamedDataSplit(
@@ -94,7 +94,7 @@ def get_loader_split(
         else:
             named_data_splits.append(
                 NamedDataSplit(
-                    "test",
+                    DataSplit.TEST.value,
                     InputResponseSelector(
                         image_ids=session.image_ids,
                         responses=session.responses,
@@ -114,11 +114,14 @@ def get_loader_split(
 
         for named_data_split in named_data_splits:
             dataset = ImageResponseDataset(named_data_split, order=order, image_cache=image_cache)
-            sampler = RepeatsBatchSampler(repeat_condition) if repeat_condition is not None else None
+            sampler = None
+            if named_data_split.name == DataSplit.TEST.value and repeat_condition:
+                repeat_image_ids = named_data_split.data.image_ids
+                sampler = RepeatsBatchSampler(repeat_image_ids)
             loader = (
                 DataLoader(dataset, batch_sampler=sampler)
                 if batch_size is None
-                else DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
+                else DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, sampler=sampler)
             )
             dataloaders[named_data_split.name].update({session.session_id: loader})
 
@@ -140,7 +143,7 @@ def _get_dataloaders_from_params(
 
     # Load image statistics if present
     params_hash = make_hash(params.dict())
-    stats_path = params.data.path / f"cached_stats_config={params_hash}.json"
+    stats_path = params.data_path / f"cached_stats_config={params_hash}.json"
 
     if stats_path.is_file():
         stats_config = load_json_stats(stats_path)
@@ -148,7 +151,7 @@ def _get_dataloaders_from_params(
         params.image_transform.std_images = float(np.float32(stats_config.get("std_images")))
 
     image_cache = ImageCache(
-        path=params.data.path / "images",
+        path=params.data_path / "images",
         image_transformation=params.image_transform,
         filename_precision=6,
     )
@@ -161,17 +164,21 @@ def _get_dataloaders_from_params(
         stats_data["mean_images"] = mean
         stats_data["std_images"] = std
         save_json_stats(stats_path, stats_data)
+    else:
+        _ = image_cache.images  # Cache images
 
     test_loader = get_loader_split(
         params=params,
         image_cache=image_cache,
-        data_split=DataSplit("test"),
-        shuffle=shuffle,
+        data_split=DataSplit.TEST,
+        repeat_condition=True,
+        batch_size=1,
+        shuffle=False,
     )
     train_loader = get_loader_split(
         params=params,
         image_cache=image_cache,
-        data_split=DataSplit("train"),
+        data_split=DataSplit.TRAIN,
         shuffle=shuffle,
     )
 
@@ -180,7 +187,7 @@ def _get_dataloaders_from_params(
 
 def get_dataloaders(
     dataset_name: Optional[str] = "default",
-    data: Optional[DataPath] = None,
+    data_path: Optional[PathLike] = None,
     image_transform: Optional[ImageTransform] = None,
     process_time_bins: Optional[ProcessTimeBins] = None,
     batch_size: Optional[NonNegativeInt] = None,
@@ -196,7 +203,7 @@ def get_dataloaders(
     These arguments override the parameters in the config.toml file if they are not None.
     Args:
         dataset_name: name of the dataset to load from the config.toml file
-        data: DataPath object
+        data_path: PathLike object
         image_transform: ImageTransform object
         process_time_bins: ProcessTimeBins object
         batch_size: batch size
@@ -215,15 +222,15 @@ def get_dataloaders(
     # Create input params dict
     params_input: Dict[str, Any] = {}
     for name, field in zip(
-        ("data", "image_transform", "process_time_bins", "train_with_fraction_of_images"),
-        (data, image_transform, process_time_bins, train_with_fraction_of_images),
+        ("image_transform", "process_time_bins", "train_with_fraction_of_images"),
+        (image_transform, process_time_bins, train_with_fraction_of_images),
     ):
         if field is not None:
             params_input[name] = field.dict()
 
     for name, field_num in zip(
-        ("batch_size", "validation_fraction", "seed", "include_prev_image", "include_trial_id"),
-        (batch_size, validation_fraction, seed, include_prev_image, include_trial_id),
+        ("data_path", "batch_size", "validation_fraction", "seed", "include_prev_image", "include_trial_id"),
+        (data_path, batch_size, validation_fraction, seed, include_prev_image, include_trial_id),
     ):
         if field_num is not None:
             params_input[name] = field_num

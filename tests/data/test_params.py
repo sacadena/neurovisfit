@@ -4,7 +4,6 @@ from PIL import Image
 from neurovisfit.data.params import AggregateBins
 from neurovisfit.data.params import Crop
 from neurovisfit.data.params import DataLoaderParams
-from neurovisfit.data.params import DataPath
 from neurovisfit.data.params import ImageTransform
 from neurovisfit.data.params import ProcessTimeBins
 from neurovisfit.data.params import TrainWithFractionOfImages
@@ -72,22 +71,9 @@ def test_train_with_fraction_of_images():
     assert len(indices) == 5
 
 
-def test_data_path(mock_data_path):
-    path = DataPath(
-        path=mock_data_path,
-        exclude_sessions=["session1"],
-    )
-
-    assert path.path == mock_data_path
-    assert path.exclude_sessions == ["session1"]
-
-
 def test_data_loader_params(mock_data_path):
     params = DataLoaderParams(
-        data=DataPath(
-            path=mock_data_path,
-            exclude_sessions=["session1", "session2"],
-        ),
+        data_path=mock_data_path,
         image_transform=ImageTransform(
             subsample=2,
             crop=Crop(10, 10, 10, 10),
@@ -114,8 +100,7 @@ def test_data_loader_params(mock_data_path):
         ),
     )
 
-    assert params.data.path == mock_data_path
-    assert params.data.exclude_sessions == ["session1", "session2"]
+    assert params.data_path == mock_data_path
     assert params.image_transform.subsample == 2
     assert params.image_transform.crop.left == 10
     assert params.process_time_bins.bin_duration_ms == 10.0
