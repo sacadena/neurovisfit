@@ -172,7 +172,7 @@ def _get_dataloaders_from_params(
         image_cache=image_cache,
         data_split=DataSplit.TEST,
         repeat_condition=True,
-        batch_size=1,
+        batch_size=None,
         shuffle=False,
     )
     train_loader = get_loader_split(

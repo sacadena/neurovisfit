@@ -91,7 +91,11 @@ class ImageResponseDataset(Dataset):
 
             val = getattr(self.named_data_split.data, key)
             if key in ("image_ids", "previous_image_ids"):
-                tensors.append(torch.stack(list(self.image_cache[val[idx]])))  # Turn ids into images
+                cache_ind = val[idx]
+                if isinstance(cache_ind, np.ndarray):
+                    tensors.append(torch.stack([self.image_cache[ci] for ci in cache_ind]))
+                else:
+                    tensors.append(torch.stack(list(self.image_cache[val[idx]])))  # Turn ids into images
             else:
                 tensors.append(torch.from_numpy(val[idx]).to(torch.float))
         return self.DataPoint(*tensors)
