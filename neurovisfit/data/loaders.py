@@ -114,11 +114,14 @@ def get_loader_split(
 
         for named_data_split in named_data_splits:
             dataset = ImageResponseDataset(named_data_split, order=order, image_cache=image_cache)
-            sampler = RepeatsBatchSampler(repeat_condition) if repeat_condition is not None else None
+            sampler = None
+            if named_data_split.name == DataSplit.TEST.value and repeat_condition:
+                repeat_image_ids = named_data_split.data.image_ids
+                sampler = RepeatsBatchSampler(repeat_image_ids)
             loader = (
                 DataLoader(dataset, batch_sampler=sampler)
                 if batch_size is None
-                else DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
+                else DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, sampler=sampler)
             )
             dataloaders[named_data_split.name].update({session.session_id: loader})
 
@@ -167,13 +170,15 @@ def _get_dataloaders_from_params(
     test_loader = get_loader_split(
         params=params,
         image_cache=image_cache,
-        data_split=DataSplit("test"),
-        shuffle=shuffle,
+        data_split=DataSplit.TEST,
+        repeat_condition=True,
+        batch_size=1,
+        shuffle=False,
     )
     train_loader = get_loader_split(
         params=params,
         image_cache=image_cache,
-        data_split=DataSplit("train"),
+        data_split=DataSplit.TRAIN,
         shuffle=shuffle,
     )
 
