@@ -1,3 +1,4 @@
+from typing import Any
 from typing import List
 from typing import Optional
 from typing import Tuple
@@ -18,7 +19,7 @@ def compute_model_predictions_for_repeated_input_loaders(
     device: str = "cuda",
     broadcast_to_target: bool = False,
     repeat_channel_dim: Optional[int] = None,
-) -> Tuple[List[np.ndarray], np.ndarray]:
+) -> Tuple[List[Any], List[Any]]:
     """
     Computes model predictions for a dataloader that yields batches with identical inputs along the first dimension.
     Unique inputs will be forwarded only once through the model
