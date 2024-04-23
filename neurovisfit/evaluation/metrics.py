@@ -40,14 +40,14 @@ def compute_feve_from_target_and_outputs(
         predictions_variance.append((targets[i] - outputs[i]) ** 2)
         image_variance.append(np.var(targets[i], axis=0, ddof=1))
 
-    predictions_variance = np.vstack(predictions_variance)
-    image_variance = np.vstack(image_variance)
+    predictions_variance_array = np.vstack(predictions_variance)
+    image_variance_array = np.vstack(image_variance)
 
     total_variance = np.var(np.vstack(targets), axis=0, ddof=1)
-    noise_variance = np.mean(image_variance, axis=0)
+    noise_variance = np.mean(image_variance_array, axis=0)
     fraction_explainable_variance = (total_variance - noise_variance) / total_variance
 
-    predictions_variance_averaged = np.mean(predictions_variance, axis=0)
+    predictions_variance_averaged = np.mean(predictions_variance_array, axis=0)
     fraction_explainable_variance_explained = 1 - (predictions_variance_averaged - noise_variance) / (
         total_variance - noise_variance
     )
