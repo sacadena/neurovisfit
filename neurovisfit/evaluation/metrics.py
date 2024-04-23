@@ -15,8 +15,8 @@ from .predictions import compute_model_predictions_for_repeated_input_loaders
 
 
 def compute_feve_from_target_and_outputs(
-    targets: Union[torch.Tensor, np.ndarray, List[np.ndarray]],
-    outputs: Union[torch.Tensor, np.ndarray, List[np.ndarray]],
+    targets: Union[List[torch.Tensor], List[np.ndarray]],
+    outputs: Union[List[torch.Tensor], List[np.ndarray]],
     return_fraction_explainable_var: bool = False,
 ) -> Union[Tuple[np.ndarray, np.ndarray], np.ndarray]:
     """
