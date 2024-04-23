@@ -114,7 +114,7 @@ def compute_feve(
     min_fraction_explainable_variance: Optional[float] = None,
 ) -> Union[Dict[str, Any], np.ndarray, float]:
     dataloaders = dataloaders["test"] if "test" in dataloaders else dataloaders
-    feve = {}
+    feve_sessions = {}
     for data_key, dataloader in dataloaders.items():
         targets, outputs = compute_model_predictions_for_repeated_input_loaders(
             model=model,
@@ -124,13 +124,14 @@ def compute_feve(
             broadcast_to_target=True,
         )
         if min_fraction_explainable_variance is None:
-            feve[data_key] = compute_feve_from_target_and_outputs(targets=targets, outputs=outputs)
+            feve_sessions[data_key] = compute_feve_from_target_and_outputs(targets=targets, outputs=outputs)
         else:
             fev, feve = compute_feve_from_target_and_outputs(
                 targets=targets, outputs=outputs, return_fraction_explainable_var=True
             )
-            feve[data_key] = feve[fev > min_fraction_explainable_variance]
+            feve_sessions[data_key] = feve[fev > min_fraction_explainable_variance]
 
     if not as_dict:
-        feve = np.hstack([v for v in feve.values()]) if per_neuron else np.mean(np.hstack([v for v in feve.values()]))
-    return feve
+        feve_sessions_arr = np.hstack([v for v in feve_sessions.values()])
+        feve_sessions = feve_sessions_arr if per_neuron else np.mean(feve_sessions_arr)
+    return feve_sessions
