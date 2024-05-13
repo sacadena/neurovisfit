@@ -6,43 +6,54 @@
 [![Commit activity](https://img.shields.io/github/commit-activity/m/sacadena/neurovisfit)](https://img.shields.io/github/commit-activity/m/sacadena/neurovisfit)
 [![License](https://img.shields.io/github/license/sacadena/neurovisfit)](https://img.shields.io/github/license/sacadena/neurovisfit)
 
-This is a template repository for Python projects that use Poetry for their dependency management.
+Code to reproduce the results of Cadena et al. 2024 PlosCB to predict macaque V1 and V4 responses to natural
+images.
 
-- **Github repository**: <https://github.com/sacadena/neurovisfit/>
-- **Documentation** <https://sacadena.github.io/neurovisfit/>
+Download 
+[V1](https://figshare.com/articles/dataset/Monkey_V1_responses_to_natural_images_from_Cadena_et_al_2023/23056805?backTo=/collections/Monkey_V1_and_V4_single-cell_responses_to_natural_images_ephys_Data_from_Cadena_et_al_2024_/6658331) and [V4](https://figshare.com/articles/dataset/Monkey_V4_responses_to_natural_images_from_Cadena_et_al_2023/23060540?backTo=/collections/Monkey_V1_and_V4_single-cell_responses_to_natural_images_ephys_Data_from_Cadena_et_al_2024_/6658331) datasets to a local folder
 
-## Getting started with your project
 
-First, create a repository on GitHub with the same name as this project, and then run the following commands:
+```python
 
-``` bash
-git init -b main
-git add .
-git commit -m "init commit"
-git remote add origin git@github.com:sacadena/neurovisfit
-git push -u origin main
+# Get data loaders
+from pathlib import Path
+from neurovisfit.data.loaders import get_dataloaders
+dataset_name = "v4_data_cadena_et_al_2024"
+data_path = Path("your_data_path/v4_data")
+dataloaders = get_dataloaders(dataset_name, data_path)
+
+
+# Build model
+from neurovisfit.models.builder import build_model
+model_name = "v4__core_resnet50_l2_01_layer_3_0__readout_gauss"
+model = build_model(
+    model_name,
+    dataloaders=dataloaders,
+    seed=42,
+)
+
+# Train model
+from neurovisfit.trainers.params import get_trainer_params_from_config
+from neurovisfit.trainers.trainer import train_and_evaluate
+
+trainer_params = get_trainer_params_from_config('standard_trainer')
+results = train_and_evaluate(
+    model=model,
+    dataloaders=dataloaders,
+    params=trainer_params,
+    seed=42,
+    device='cuda',
+)
 ```
 
-Finally, install the environment and the pre-commit hooks with 
-
-```bash
-make install
+## Citation
+```commandline
+@article{cadena2022diverse,
+ title={Diverse task-driven modeling of macaque V4 reveals functional specialization towards semantic tasks},
+ author={Cadena, Santiago A and Willeke, Konstantin F and Restivo, Kelli and Denfield, George and Sinz, Fabian H and Bethge, Matthias and Tolias, Andreas S and Ecker, Alexander S},
+ journal={bioRxiv},
+ pages={2022--05},
+ year={2022},
+ publisher={Cold Spring Harbor Laboratory}
+}
 ```
-
-You are now ready to start development on your project! The CI/CD
-pipeline will be triggered when you open a pull request, merge to main,
-or when you create a new release.
-
-To finalize the set-up for publishing to PyPi or Artifactory, see
-[here](https://fpgmaas.github.io/cookiecutter-poetry/features/publishing/#set-up-for-pypi).
-For activating the automatic documentation with MkDocs, see
-[here](https://fpgmaas.github.io/cookiecutter-poetry/features/mkdocs/#enabling-the-documentation-on-github).
-To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-poetry/features/codecov/).
-
-## Releasing a new version
-
-
-
----
-
-Repository initiated with [fpgmaas/cookiecutter-poetry](https://github.com/fpgmaas/cookiecutter-poetry).
